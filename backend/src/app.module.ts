@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config'
 import { PrismaModule } from './prisma/prisma.module'
 import { AuthModule } from './auth/auth.module'
 import { PostsModule } from './posts/posts.module'
+import { CommentsModule } from './comments/comments.module'
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { PostsModule } from './posts/posts.module'
     PrismaModule,
     AuthModule,
     PostsModule,
+    CommentsModule,
   ],
   controllers: [],
   providers: [],

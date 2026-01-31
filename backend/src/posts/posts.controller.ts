@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   UseGuards,
+  ParseUUIDPipe,
 } from '@nestjs/common'
 import { PostsService } from './posts.service'
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
@@ -25,7 +26,7 @@ export class PostsController {
   }
 
   @Get(':id')
-  async getById(@Param('id') id: string) {
+  async getById(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
     return this.postsService.getById(id)
   }
 
@@ -42,7 +43,7 @@ export class PostsController {
   @Roles('ADMIN')
   @UseGuards(JwtAuthGuard, RolesGuard)
   async update(
-    @Param('id') id: string,
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
     @Body() body: UpdatePostDto,
   ) {
     return this.postsService.update(id, body)
@@ -51,7 +52,7 @@ export class PostsController {
   @Delete(':id')
   @Roles('ADMIN')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
     return this.postsService.remove(id)
   }
 }
