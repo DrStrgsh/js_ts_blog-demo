@@ -41,6 +41,8 @@ model Post {
   reactions     PostReaction[]
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
+
+  @@index([createdAt])
 }
 
 model Comment {
@@ -55,6 +57,7 @@ model Comment {
 
   @@index([postId])
   @@index([authorId])
+  @@index([createdAt])
 }
 
 model PostReaction {
