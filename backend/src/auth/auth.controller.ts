@@ -37,6 +37,7 @@ export class AuthController {
       httpOnly: true,
       secure: isSecure,
       sameSite,
+      path: '/',
     })
 
     return user
@@ -48,8 +49,15 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const cookieName = this.config.get<string>('AUTH_COOKIE_NAME') ?? 'access_token'
+    const isSecure = this.config.get<string>('COOKIE_SECURE') === 'true'
+    const sameSite = (this.config.get<string>('COOKIE_SAMESITE') as 'lax' | 'strict' | 'none') ?? 'lax'
 
-    res.clearCookie(cookieName)
+    res.clearCookie(cookieName, {
+      httpOnly: true,
+      secure: isSecure,
+      sameSite,
+      path: '/',
+    })
   }
 
   @Get('me')
