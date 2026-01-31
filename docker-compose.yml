@@ -34,6 +34,7 @@ services:
       - "3001:3001"
     volumes:
       - ./backend:/app
+      - /app/node_modules
 
   frontend:
     build:
@@ -45,11 +46,13 @@ services:
       - backend
     environment:
       NODE_ENV: development
-      NEXT_PUBLIC_API_URL: http://localhost:3001
+      NEXT_PUBLIC_API_URL: http://backend:3001
+      WATCHPACK_POLLING: "true"
     ports:
       - "3000:3000"
     volumes:
       - ./frontend:/app
+      - /app/node_modules
 
 volumes:
   blog_demo_pgdata:
